@@ -1,0 +1,137 @@
+body {
+    height: 100vh;
+    font-family: 'Karla', sans-serif;
+    background: #7395AE; 
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.headingText {
+    font-weight: 700;
+    font-size: 2.5em;
+    text-align: center;
+    color: #ecf0f1;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.container {
+    max-width: 80%;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    height: 200px; 
+    overflow-y: auto; 
+}
+
+.textHeading {
+    margin: 10px 0;
+    font-weight: 500;
+    font-size: 1.5em;
+    font-weight: 800;
+    color: #010d15;
+    text-align: left;
+}
+.summaryButton {
+    display: inline-block;
+    padding: .75rem 1.25rem;
+    border-radius: 10rem;
+    color: #000000;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.summaryButton::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0cf;
+    border-radius: 10rem;
+    z-index: -2;
+}
+
+.summaryButton::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.50);
+    transition: all .8s;
+    border-radius: 10rem;
+    z-index: -1;
+}
+
+.summaryButton:hover {
+    color: #fff;
+}
+
+.summaryButton:hover::before {
+    width: 100%;
+}
+
+
+.outputText {
+    font-family: 'Karla', sans-serif;
+    color: #000000;
+    font-weight: 300;
+    font-size: 1.2em;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.w-50 {
+    width: 50%;
+    margin-right: 20px;
+}
+
+.textBox.w-50 {
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .headingText {
+        font-size: 2em;
+    }
+
+    .container {
+        max-width: 90%;
+    }
+
+    .textHeading {
+        font-size: 1.3em;
+    }
+
+    .summaryButton {
+        font-size: 0.9em;
+    }
+
+    .outputText {
+        font-size: 1em;
+    }
+}

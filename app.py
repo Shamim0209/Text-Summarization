@@ -5,18 +5,23 @@ import torch
 
 app = Flask(__name__)
 
-model_name = "google/pegasus-xsum"
-tokenizer = PegasusTokenizer.from_pretrained(model_name)
-
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model = PegasusForConditionalGeneration.from_pretrained(model_name).to(device)
+#ABSTRACTIVE MODEL
+model_name1 = "google/pegasus-xsum"
+tokenizer = PegasusTokenizer.from_pretrained(model_name1)
+model1 = PegasusForConditionalGeneration.from_pretrained(model_name1).to(device)
+
+# EXTRACTIVE MODEL
+# model_name2 = "google/pegasus-cnn_dailymail"
+# tokenizer2 = PegasusTokenizer.from_pretrained(model_name2)
+# model2 = PegasusForConditionalGeneration.from_pretrained(model_name2).to(device)
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/text-summarization', methods=["POST"])
-def summarize():
+@app.route('/text-summarizationAbs', methods=["POST"])
+def summarizeAbs():
 
     if request.method == "POST":
 
@@ -25,22 +30,24 @@ def summarize():
         input_text = "summarize: " + inputtext
 
         tokenized_text = tokenizer.encode(input_text, return_tensors='pt', max_length=512).to(device)
-        summary_ = model.generate(tokenized_text, min_length=30, max_length=300)
+        summary_ = model1.generate(tokenized_text, min_length=30, max_length=300)
         summary = tokenizer.decode(summary_[0], skip_special_tokens=True)
 
-        '''
-            text = <start> i am yash <end>
-            vocab = { i: 1, am : 2, yash: 3, start 4}
+    return render_template("output.html", data = {"summary": summary})
 
-            token = [i, am ,yash]
-            encode = [1 2, 3, 4]
+@app.route('/text-summarizationExt', methods=["POST"])
+def summarizeExt():
 
-            summary_ = [[4, 3,1, 5]]
+    if request.method == "POST":
 
-            summary = yash i
+        inputtext = request.form["inputtext_"]
 
-        
-        '''
+        input_text = "summarize: " + inputtext
+
+        tokenized_text = tokenizer2.encode(input_text, return_tensors='pt', max_length=512).to(device)
+        summary_ = model2.generate(tokenized_text, min_length=30, max_length=300)
+        summary = tokenizer2.decode(summary_[0], skip_special_tokens=True)
+
 
     return render_template("output.html", data = {"summary": summary})
 
